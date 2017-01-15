@@ -1,5 +1,5 @@
-# twitter creds used for development
-twitter.json
+# let's keep all json files out, will contain secret info of various kinds.
+*.json
 
 # going to do interactive development with jupyter, this stuff doesn't need to be in version control either.
 *.ipynb
