@@ -1,6 +1,9 @@
 # twitter creds used for development
 twitter.json
 
+# going to do interactive development with jupyter, this stuff doesn't need to be in version control either.
+*.ipynb
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
