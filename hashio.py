@@ -82,25 +82,30 @@ def __initiate_url(target):
         textfile = False
     return {"url": url, "name": name, "version": version, "filename": filename, "hash": h, "textfile": textfile, "added": timestamp, "last_checked": timestamp}
 
-def load_targets(filename):
-    with open(filename) as t:
-        targets = json.loads(t.read())
-
-def check_targets(targetlist):
+def __check_targets(targetlist):
     new_targets = []
-    changelist = []
-    newlist = []
+    changes = []
+    additions = []
     for target in targetlist:
-        t = deepcopy(t)
-        if "added" in target:
+        t = deepcopy(target)
+        if "added" in t:
             t = __check_url(t)
             if t["justchanged"]:
                 t["justchanged"] = False
-                changelist.append(t)
+                changes.append(t)
         else:
             t = __initiate_url(t)
-            newlist.append(t)
+            additions.append(t)
         new_targets.append(t)
-    return (new_targets, changelist, newlist)
-# then I need to call check_targets, save the targetlist, tweet out based on changelist and newlist.
+    return {"targets": new_targets, "changes": changes, "additions": additions}
 
+def check_from_file(targetfile):
+    """
+    takes json file with targets. checks. saves updated json file. returns a dict of check results where (additions, changes) need to be tweeted.
+    """
+    with open(targetfile) as infile:
+        targetlist = json.load(t)
+    checked = __check_targets(targetlist)
+    with open(targetfile, "w") as outfile:
+        json.dump(checked["targets"], outfile, sort_keys = True, indent = 4)
+    return checked
