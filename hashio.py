@@ -48,7 +48,7 @@ def __handle_changes(target, new_hash, prior_check):
     supplanted_date = t["last_checked"]
     if "change_history" not in t:
         t["change_history"] = []
-    t["change_history"].append() = {"version": old_version, "filename": old_filename, "hash": old_hash, "last_seen": prior_check, "supplanted": supplanted_date}
+    t["change_history"].append({"version": old_version, "filename": old_filename, "hash": old_hash, "last_seen": prior_check, "supplanted": supplanted_date})
     return t
 
 def __check_url(target):
@@ -56,7 +56,7 @@ def __check_url(target):
     t = deepcopy(target)
     timestamp = datetime.datetime.now().isoformat()
     old_hash = t["hash"]
-    new_hash = hash.fetch_and_hash(t[url])
+    new_hash = hash.fetch_and_hash(t["url"])
     prior_check = t["last_checked"]
     t["last_checked"] = timestamp
     if old_hash == new_hash:
@@ -104,8 +104,10 @@ def check_from_file(targetfile):
     takes json file with targets. checks. saves updated json file. returns a dict of check results where (additions, changes) need to be tweeted.
     """
     with open(targetfile) as infile:
-        targetlist = json.load(t)
+        targetlist = json.load(infile)
     checked = __check_targets(targetlist)
     with open(targetfile, "w") as outfile:
         json.dump(checked["targets"], outfile, sort_keys = True, indent = 4)
     return checked
+
+print(check_from_file("testtargets.json"))
