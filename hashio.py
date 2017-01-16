@@ -16,7 +16,7 @@ This file will be modified automatically by the program. It can initially be bla
 filename: targets.json
 
 """
-import json, hash
+import json, hash, datetime
 from copy import deepcopy
 
 # instead of weird counter architecture, each json just needs a version field that will be added to.
@@ -30,41 +30,60 @@ def __filename(exten, name, version_number):
     else:
         return ''.join(name.split()) + str(version_number) + "." + exten
 
+def __handle_changes(target):
+    if "versions" in target:
+
+
 
 def __check_url(target):
-    # get url, check hash vs hash of saved file, and if new set changed bit and add a second version (or an nth version if versions field already exists).  If not new, just return orig with last checked added.
-    pass
+    """get url, check hash vs hash of saved file, and if new set changed bit and add a second version (or an nth version if versions field already exists).  If not new, just return orig with last checked added."""
+    t = deepcopy(target)
+    timestamp = datetime.datetime.now().isoformat()
+    old_hash = t["hash"]
+    new_hash = hash.fetch_and_hash(t[url])
+    t["last_checked"] = timestamp
+    if old_hash == new_hash:
+        t["justchanged"] = False
+        return t
+    else:
+        t["justchanged"] = True
+        return __handle_changes(t)
 
 def __initiate_url(target):
-    url = target["url"]
-    name = target["name"]
+    t = deepcopy(target)
+    timestamp = datetime.datetime.now().isoformat()
+    url = t["url"]
+    name = t["name"]
     exten = __exten(url)
     version = 1
     filename = __filename(exten, name, 1)
     hash.fetch_and_save(url, filename)
     h = hash.hashfile(filename)
     if exten in ["html", "htm", "json", "csv", "txt"]:
-        text = True
+        textfile = True
     else:
-        text = False
-    return {"url": url, "name": name, "version": version, "filename": filename, "hash": h, "text": text}
+        textfile = False
+    return {"url": url, "name": name, "version": version, "filename": filename, "hash": h, "textfile": textfile, "added": timestamp}
 
 def load_targets(filename):
     with open(filename) as t:
         targets = json.loads(t.read())
 
 def check_targets(targetlist):
+    new_targets = []
     changelist = []
     newlist = []
     for target in targetlist:
-        if target["saved"]:
-            target = __check_url(target)
-            if target["justchanged"]:
-                changelist.append(deepcopy(target))
-                target["justchanged"] = False
+        t = deepcopy(t)
+        if "added" in target:
+            t = __check_url(t)
+            if t["justchanged"]:
+                t["justchanged"] = False
+                changelist.append(t)
         else:
-            target = __initiate_url(target)
-            newlist.append(deepcopy(target))
-    return (targetlist, changelist, newlist)
+            t = __initiate_url(t)
+            newlist.append(t)
+        new_targets.append(t)
+    return (new_targets, changelist, newlist)
 # then I need to call check_targets, save the targetlist, tweet out based on changelist and newlist.
 
