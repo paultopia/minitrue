@@ -19,8 +19,6 @@ filename: targets.json
 import json, hash, datetime
 from copy import deepcopy
 
-# instead of weird counter architecture, each json just needs a version field that will be added to.
-
 def __exten(url):
     return url.rpartition(".")[2]
 
@@ -31,9 +29,10 @@ def __filename(exten, name, version_number):
         return ''.join(name.split()) + str(version_number) + "." + exten
 
 def __handle_changes(target):
-    if "versions" in target:
-
-
+    if "change_history" in target:
+        pass
+    else:
+        pass
 
 def __check_url(target):
     """get url, check hash vs hash of saved file, and if new set changed bit and add a second version (or an nth version if versions field already exists).  If not new, just return orig with last checked added."""
