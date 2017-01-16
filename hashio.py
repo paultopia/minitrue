@@ -56,7 +56,9 @@ def __check_url(target):
     t = deepcopy(target)
     timestamp = datetime.datetime.now().isoformat()
     old_hash = t["hash"]
+    print(old_hash)
     new_hash = hash.fetch_and_hash(t["url"])
+    print(new_hash)
     prior_check = t["last_checked"]
     t["last_checked"] = timestamp
     if old_hash == new_hash:
