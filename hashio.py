@@ -28,11 +28,28 @@ def __filename(exten, name, version_number):
     else:
         return ''.join(name.split()) + str(version_number) + "." + exten
 
-def __handle_changes(target):
-    if "change_history" in target:
-        pass
-    else:
-        pass
+def __handle_changes(target, new_hash, prior_check):
+    t = deepcopy(target)
+    # bump version
+    old_version = t["version"]
+    version = t["version"] + 1
+    t["version"] = version
+    # bump filename
+    old_filename = t["filename"]
+    url = t["url"]
+    name = t["name"]
+    exten = __exten(url)
+    new_filename = __filename(exten, name, t["version"])
+    hash.fetch_and_save(url, new_filename) # save new file (assumes no additional change between first check and second which would be pretty unlikely)
+    t["filename"] = new_filename
+    # bump hash
+    old_hash = t["hash"]
+    t["hash"] = new_hash
+    supplanted_date = t["last_checked"]
+    if "change_history" not in t:
+        t["change_history"] = []
+    t["change_history"].append() = {"version": old_version, "filename": old_filename, "hash": old_hash, "last_seen": prior_check, "supplanted": supplanted_date}
+    return t
 
 def __check_url(target):
     """get url, check hash vs hash of saved file, and if new set changed bit and add a second version (or an nth version if versions field already exists).  If not new, just return orig with last checked added."""
@@ -40,13 +57,14 @@ def __check_url(target):
     timestamp = datetime.datetime.now().isoformat()
     old_hash = t["hash"]
     new_hash = hash.fetch_and_hash(t[url])
+    prior_check = t["last_checked"]
     t["last_checked"] = timestamp
     if old_hash == new_hash:
         t["justchanged"] = False
         return t
     else:
         t["justchanged"] = True
-        return __handle_changes(t)
+        return __handle_changes(t, new_hash, prior_check)
 
 def __initiate_url(target):
     t = deepcopy(target)
@@ -62,7 +80,7 @@ def __initiate_url(target):
         textfile = True
     else:
         textfile = False
-    return {"url": url, "name": name, "version": version, "filename": filename, "hash": h, "textfile": textfile, "added": timestamp}
+    return {"url": url, "name": name, "version": version, "filename": filename, "hash": h, "textfile": textfile, "added": timestamp, "last_checked": timestamp}
 
 def load_targets(filename):
     with open(filename) as t:
