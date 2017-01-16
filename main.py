@@ -29,13 +29,6 @@ def load_tweetcreds():
 		creds = json.load(tc)
 	return creds
 
-## NEED TO CREATE TARGET ID 'uuid' IN ADDITIONS 
-## just use (str(uuid.uuid4())) which is 36 chars.
-## put creation into hashio
-## and remove length limitation from name since it shouldn't 
-## get tweeted. 
-## uuid = 36 + hash = 64 = 100, leaving 40 char for words etc.
-
 def tweet_new_targets(newlist, tweetfn, tweetlog):
 	log = deepcopy(tweetlog)
 	for n in newlist:

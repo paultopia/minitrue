@@ -18,6 +18,7 @@ filename: targets.json
 """
 import json, hash, datetime
 from copy import deepcopy
+from uuid import uuid4
 
 def __exten(url):
     return url.rpartition(".")[2]
@@ -72,6 +73,7 @@ def __initiate_url(target):
     url = t["url"]
     name = t["name"]
     exten = __exten(url)
+    uuid = str(uuid4())
     version = 1
     filename = __filename(exten, name, 1)
     hash.fetch_and_save(url, filename)
@@ -80,7 +82,7 @@ def __initiate_url(target):
         textfile = True
     else:
         textfile = False
-    return {"url": url, "name": name, "version": version, "filename": filename, "hash": h, "textfile": textfile, "added": timestamp, "last_checked": timestamp}
+    return {"url": url, "name": name, "version": version, "filename": filename, "hash": h, "textfile": textfile, "added": timestamp, "last_checked": timestamp, "uuid": uuid}
 
 def __check_targets(targetlist):
     new_targets = []
