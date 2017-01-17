@@ -54,7 +54,7 @@ It's probably best to keep this on something that's on a lot---I'm going to be r
 
 ## Future Steps, Help Requests
 
-This should be good to go (by the end of the day, after I do a little testing and squash the inevitable bugs in the two modules I just created from my ipad without running them at all).  But right now you kind of need to be pretty skilled to run it.  So that's top priority to change.  
+This should be good to go in its current (0.1.0) version.  But right now you kind of need to be pretty skilled to run it.  So that's top priority to change.  
 
 In rough order of priority, here is what needs to happen next:
 
