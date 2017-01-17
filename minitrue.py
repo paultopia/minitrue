@@ -42,10 +42,10 @@ def tweet_new_targets(newlist, tweetfn, tweetlog):
 def tweet_changed_targets(changed, tweetfn, tweetlog):
 	log = deepcopy(tweetlog)
 	for c in changed:
-		tweet = "CHANGED! " + n["uuid"] + " new hash: " + n["hash"] + "."
+		tweet = "CHANGED! " + c["uuid"] + " new hash: " + c["hash"] + "."
 		response = tweetfn(tweet)
-		response["uuid"] = n["uuid"]
-		response["hash"] = n["hash"] # just to facilitate searching
+		response["uuid"] = c["uuid"]
+		response["hash"] = c["hash"] # just to facilitate searching
 		log.append(response)
 	return log
 

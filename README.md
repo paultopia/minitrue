@@ -2,7 +2,9 @@
 
 **Catch Donald Trump Tampering with Public Data** 
 
-Status: alpha ready to go by end of day 1/16/17.  Still testing.  
+Status: alpha, but ready to go.  People to test, and outright use, needed!
+
+![example](screenshot.png?raw=true "example")
 
 ## What is it? 
 
@@ -32,13 +34,13 @@ The more people who use it, the more threatening it is: the ultimate idea is to 
 
 1.  Clone or download this repo, and put it somewhere where it will be able to run from.
 
-2.  Make addurl.py and main.py executable (`chmod +x`).  Optionally add appropriate shebangs, rename those two files, etc. (don't rename any of the others). 
+2.  Make addurl.py and minitrue.py executable (`chmod +x`).  Optionally add appropriate shebangs, rename those two files, etc. (don't rename any of the others). 
 
 3.  Run addurl.py to create a list of urls to monitor. 
 
 4.  Store your twitter developer credentials in a file called "twittercreds.json" in the same directory. Format fields are 'consumer_key', 'consumer_secret', 'access_token', and 'access_secret', which are all in the order given in the twitter dev page. Digitalocean has [a helpful tutorial for getting this part set up](https://www.digitalocean.com/community/tutorials/how-to-create-a-twitter-app).
 
-5.  Set main.py to run at regular intervals (I suggest daily) using a cron job, or launchd on mac.
+5.  Set minitrue.py to run at regular intervals (I suggest daily) using a cron job, or launchd on mac.
 
 ## Caveats
 

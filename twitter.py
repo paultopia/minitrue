@@ -27,20 +27,20 @@ print(post)
 
 import tweepy, json
 
-def twitter_poster(json_creds):
-    """Pass me a json file with twitter creds.
+def twitter_poster(tcreds):
+    """Pass me a dict with twitter creds.
 
     Returns:
     a function to call to post to the given twitter account and get dict with relevant info
 
     """
-    with open(json_creds) as tj:
-        tcreds = json.loads(tj.read())
     auth = tweepy.OAuthHandler(tcreds["consumer_key"], tcreds["consumer_secret"])
     auth.set_access_token(tcreds["access_token"], tcreds["access_secret"])
     twitter = tweepy.API(auth)
+    print("created credentials")
     def post_tweet(text):
         sobj = twitter.update_status(text)
+        print("posted tweet")
         url = "https://twitter.com/" + sobj.user.screen_name + "/status/" + str(sobj.id)
         return {"text": sobj.text, "id": sobj.id, "date": sobj.created_at.isoformat(), "account": sobj.user.screen_name, "url": url}
     return post_tweet

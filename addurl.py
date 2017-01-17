@@ -10,15 +10,10 @@ def format_url(url):
 		return 'http://' + url
 	return url
 
-def format_name(name):
-	if len(name) > 40:
-		return name[:40]
-	return name
-
 addnew = 'y'
 while addnew == 'y':
-	newurl = format_url(input('URL of new target: '))
-	newname = format_name(input('Name of new target (no more than 40 characters): '))
+	newurl = format_url(input('URL of new target: ')).strip()
+	newname = input('Name of new target: ').strip()
 	targets.append({'name': newname, 'url': newurl})
 	addnew = input('Would you like to add another URL? (y/n): ').lower()
 
