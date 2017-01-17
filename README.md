@@ -42,7 +42,7 @@ The more people who use it, the more threatening it is: the ultimate idea is to 
 
 4.  Store your twitter developer credentials in a file called "twittercreds.json" in the same directory. Format fields are 'consumer_key', 'consumer_secret', 'access_token', and 'access_secret', which are all in the order given in the twitter dev page. Digitalocean has [a helpful tutorial for getting this part set up](https://www.digitalocean.com/community/tutorials/how-to-create-a-twitter-app).
 
-5.  Set minitrue.py to run at regular intervals (I suggest daily) using a cron job, or launchd on mac.
+5.  Set minitrue.py to run at regular intervals (I suggest daily) using a cron job, or launchd on mac.  For tentative instructions on doing a cron job, see crontab.md in this repo. For a starting point in running automated jobs on a mac, see [this blog post](https://paultopia.github.io/posts-output/backup-to-git/) and links therein.
 
 ## Caveats
 
