@@ -28,6 +28,8 @@ The more people who use it, the more threatening it is: the ultimate idea is to 
 
 - the tweepy library (`pip install tweepy`)
 
+- the requests library (`pip install requests`)
+
 - a twitter account with developer access set up
 
 ## How to Use
