@@ -56,7 +56,7 @@ This should be good to go (by the end of the day, after I do a little testing an
 
 In rough order of priority, here is what needs to happen next:
 
-1. Setup scripts, or even GUI interface (!??!) and a frozen distributable executable, to allow non-technical people to set up.  
+1. Setup scripts, or even GUI interface (!??!) and a frozen distributable executable (also proper oauth for twitter), to allow non-technical people to set up.  
 
 2.  Windows compatibility (if it doesn't already exist.  I don't even know.). 
 
