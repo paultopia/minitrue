@@ -2,6 +2,8 @@
 
 (I'm personally trying this out as we speak, so these instructions may change if something breaks.)
 
+**First change**: crontab doesn't necessarily run in the directory of the script, so rather than the below, a better strategy is to just write a shell script that changes to the relevant directory and then runs from there.
+
 I'm personally testing this on the smallest ($5/mo) digitalocean [droplet](https://www.digitalocean.com/products/compute/), running 32 bit ubuntu 16.10. 
 
 1.  Install dependencies. These include python 3.x, tweepy, and requests.  If you just use the anaconda python installation, it'll include requests (and lots of other stuff besides.)
