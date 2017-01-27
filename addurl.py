@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import json
 try:
 	with open('targets.json', 'r') as tf:
